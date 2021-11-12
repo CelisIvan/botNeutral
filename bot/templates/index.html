@@ -10,7 +10,8 @@
 <div id = "chatbox">
 <p class = "botText"><span>Hola, soy chatty. Si tienes alguna duda del material, intenta introducir una palabra clave para
     proporcionar información extra. Si  no es así, introdude "SECCIÓN #", sustituyendo el # por 
-    el número de la sección que sigue y pega el link en el navegador para ir a la siguiente sección
+    el número de la sección que sigue y pega el link en el navegador para ir a la siguiente sección.
+    Si ya terminaste todas las secciones, escribe "EVALUACIÓN"
 </span></p>
 <p class = "botText"><span>
     Ejemplos:
@@ -19,7 +20,13 @@
     perra laika
 </span></p>
 <p class = "botText"><span>
+    nasa
+</span></p>
+<p class = "botText"><span>
     SECCIÓN 2
+</span></p>
+<p class = "botText"><span>
+    EVALUACIÓN
 </span></p>
 </div>
 <div id = "userInput">
@@ -34,10 +41,25 @@ $("#textInput").val("");
 $("#chatbox").append(userHtml);
 document.getElementById('userInput').scrollIntoView({block:'start',behaviour:'smooth'});
 $.get("/get", {msg:rawText }).done(function(data) {
-var botHtml = '<p class ="botText"><span>' + data + '</span></p>';
+    if (isValidHttpUrl(data)) {
+    var botHtml = '<p class ="botText"><a href ="'+ data + '" target="_blank">' + data + '</a></p>';
+}else{
+    var botHtml = '<p class ="botText"><span>' + data + '</span></p>';
+}
 $("#chatbox").append(botHtml);
 document.getElementById('userInput').scrollIntoView({block : 'start',behaviour:'smooth'});
 });
+}
+function isValidHttpUrl(string) {
+  let url;
+  
+  try {
+    url = new URL(string);
+  } catch (_) {
+    return false;  
+  }
+
+  return url.protocol === "http:" || url.protocol === "https:";
 }
 $("#textInput").keypress(function(e) {
 if(e.which == 13) {
