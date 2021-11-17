@@ -33,7 +33,7 @@ def get_bot_response():
      elif userText.lower() == "sección 1" or  userText.lower() == "seccion 1":
           return "https://tesina-331906.oa.r.appspot.com/eels1"
      elif userText.lower() == "evaluación" or  userText.lower() == "evaluacion":
-          return "https://forms.gle/TpT4UvoZBvKQ6kLU8"   
+          return "https://forms.gle/VzsJg8u6CtYkMcBb7"   
      responseText = str(spanish_bot.get_response(userText))
      if responseText == "What is AI?":
           return default
